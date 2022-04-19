@@ -16,6 +16,7 @@ jobs:
       - name: Diff develop and stable branch
         id: diff
         run: |
+          git fetch
           git checkout stable
           if [ "$(git rev-parse stable)" = "$(git rev-parse develop)" ]; then
             echo "::set-output name=even::true"
