@@ -1,0 +1,18 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out repo on develop branch
+      - uses: actions/checkout@v3
+        with:
+          ref: 'develop'
+      # Overwrite stable
+      - run: |
+          git checkout -b stable
+          git push --set-upstream origin stable --force
