@@ -30,8 +30,9 @@ jobs:
         with:
           script: |
             github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Stable branch has been hotfixed. Needs review before next update.'
+              owner: 'snapshot-labs',
+              repo: 'snapshot',
+              title: 'Hotfix review',
+              body: 'Stable branch has been hotfixed. Needs review before next update. ${{ github.event.push.head }}'
               labels: ['hotfix']
             })
