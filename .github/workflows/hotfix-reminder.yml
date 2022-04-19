@@ -1,0 +1,29 @@
+name: Hotfix reminder
+
+on:
+  push:
+    branches: [ stable ]
+
+jobs:
+  reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: 'develop'
+
+      # Only open issue if branches are not even
+      - name: Diff develop and stable branch
+        id: diff
+        run: |
+          git checkout stable
+          if [ "$(git rev-parse stable)" = "$(git rev-parse develop)" ]; then
+            echo "::set-output name=even::true"
+          else
+            echo "::set-output name=even::false"
+          fi
+          
+      - name: Open issue
+        if: steps.diff.even != true
+        run: |
+          echo "Open issue! ${{ steps.diff.even }}"
