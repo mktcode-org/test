@@ -26,5 +26,12 @@ jobs:
           
       - name: Open issue
         if: ${{ steps.diff.outputs.even != true }}
-        run: |
-          echo "Open issue! ${{ steps.diff.even }}"
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Stable branch has been hotfixed. Needs review before next update.'
+              labels: ['hotfix']
+            })
