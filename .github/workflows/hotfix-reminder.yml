@@ -33,6 +33,6 @@ jobs:
               owner: 'snapshot-labs',
               repo: 'snapshot',
               title: 'Hotfix review',
-              body: 'Stable branch has been hotfixed. Needs review before next update. ${{ github.event.push.head }}'
+              body: `Stable branch has been hotfixed. Needs review before next update. ${ github.event.push.head }`
               labels: ['hotfix']
             })
