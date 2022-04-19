@@ -2,6 +2,13 @@ name: Deploy
 
 on:
   workflow_dispatch:
+    inputs:
+      target:
+        type: choice
+        description: Target
+        options: 
+        - stable
+        - demo
 
 jobs:
   deploy:
@@ -12,7 +19,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: 'develop'
-      # Overwrite stable
+      # Overwrite target
       - run: |
-          git checkout -b stable
-          git push --set-upstream origin stable --force
+          git checkout -b ${{ github.event.inputs.target }}
+          git push --set-upstream origin ${{ github.event.inputs.target }} --force
