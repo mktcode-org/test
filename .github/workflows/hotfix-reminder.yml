@@ -25,6 +25,6 @@ jobs:
           fi
           
       - name: Open issue
-        if: steps.diff.even != true
+        if: ${{ steps.diff.outputs.even != true }}
         run: |
           echo "Open issue! ${{ steps.diff.even }}"
